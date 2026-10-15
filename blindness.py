@@ -2,6 +2,7 @@ import customtkinter as ctk
 from tkinter import messagebox, filedialog
 from PIL import Image, ImageTk
 import sqlite3, datetime, webbrowser
+from model import main as predict_retinal_image
 
 # ---------------- THEME SETTINGS ----------------
 ctk.set_appearance_mode("light")
@@ -385,29 +386,49 @@ class UploadPage(ctk.CTkFrame):
             except Exception as e:
                 messagebox.showerror("Error", f"Could not load image: {str(e)}")
 
+    
     def predict(self):
-        if hasattr(self, 'image_path'):
-            # Simulate AI prediction
-            import random
-            predictions = ["No DR", "Mild DR", "Moderate DR", "Severe DR", "Proliferative DR"]
-            prediction = random.choice(predictions)
-            confidence = random.randint(85, 99)
-            
-            status = "Normal" if prediction == "No DR" else "Abnormal"
-            status_color = "#4CAF50" if status == "Normal" else "#f44336"
-            
+        if not hasattr(self, "image_path"):
+            messagebox.showerror("Error", "Please upload an image first!")
+            return
+
+        try:
+            severity, prediction, confidence = predict_retinal_image(
+                self.image_path
+            )
+
+            status = "Normal" if severity == 0 else "Abnormal"
+            status_color = "#4CAF50" if severity == 0 else "#f44336"
+
             self.result_label.configure(
-                text=f"Prediction: {prediction}\nConfidence: {confidence}%\nStatus: {status}",
+                text=(
+                    f"Model Prediction: {prediction}\n"
+                    f"Model Probability: {confidence:.1%}\n"
+                    f"Status: {status}\n"
+                    "Experimental result — not a medical diagnosis."
+                ),
                 text_color=status_color
             )
-            
-            # Save to database
-            cursor.execute("INSERT INTO reports (username, report_type, prediction, status, date) VALUES (?,?,?,?,?)",
-                          (self.controller.current_user or "guest", "Fundus Scan", prediction, status, 
-                           datetime.datetime.now().strftime("%d/%m/%Y")))
+
+            cursor.execute(
+                "INSERT INTO reports "
+                "(username, report_type, prediction, status, date) "
+                "VALUES (?,?,?,?,?)",
+                (
+                    self.controller.current_user or "guest",
+                    "Fundus Scan",
+                    prediction,
+                    status,
+                    datetime.datetime.now().strftime("%d/%m/%Y"),
+                ),
+            )
             conn.commit()
-        else:
-            messagebox.showerror("Error", "Please upload an image first!")
+
+        except Exception as e:
+            messagebox.showerror(
+                "Prediction Error",
+                f"Could not run the model:\n{e}"
+            )
 
 # ---------------- REPORTS PAGE ----------------
 class ReportsPage(ctk.CTkFrame):
