@@ -271,3 +271,13 @@ The project previously described itself as MIT-licensed. Ensure a corresponding 
 ---
 
 **Retinal AI — Empowering Vision Through Intelligence.** 👁️
+
+### 4. Obtain the model checkpoint
+
+Download the trained model checkpoint from the Hugging Face repository:
+
+**Model repository:** https://huggingface.co/Melkin07/retinal-ai-dr-classifier
+
+Download `classifier_improved.pt` and place it in the root directory of this project, alongside `model.py` and `api.py`.
+
+The model checkpoint is hosted separately because it exceeds GitHub's regular Git file-size limit.
