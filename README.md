@@ -281,3 +281,23 @@ Download the trained model checkpoint from the Hugging Face repository:
 Download `classifier_improved.pt` and place it in the root directory of this project, alongside `model.py` and `api.py`.
 
 The model checkpoint is hosted separately because it exceeds GitHub's regular Git file-size limit.
+
+### 4. Download the model checkpoint
+
+The trained model is hosted on Hugging Face and is not included in the Git repository.
+
+Install the required Hugging Face client library:
+
+```bash
+pip install -U huggingface_hub
+```
+
+Download the checkpoint into the project root:
+
+```bash
+python download_model.py
+```
+
+This creates `classifier_improved.pt` alongside `model.py` and `api.py`.
+
+Model repository: https://huggingface.co/Melkin07/retinal-ai-dr-classifier
