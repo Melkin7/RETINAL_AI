@@ -1,282 +1,273 @@
-<div align="center">
+# 🩺 Retinal AI — Diabetic Retinopathy Detection
 
-# 🩺 Retinal AI – Diabetic Retinopathy Detection Network
-### _AI-Powered Retinal Blindness Detection System (Tamil Nadu Network)_
+An AI-powered web application for classifying diabetic retinopathy severity from retinal fundus images using deep learning.
 
-</div>
+**Built with:** Python · PyTorch · FastAPI · React · Vite
 
-## 🖼️ GUI Snapshots
+> **Research/demo project:** This application is experimental and is not intended for clinical diagnosis or treatment decisions.
 
-<div align="center">
+## 🌟 Overview
 
-<img width="1470" height="956" alt="Application Screenshot 1" src="https://github.com/user-attachments/assets/446b9c47-e108-4198-89e3-70cf491768c6" />
+Retinal AI explores how deep learning can support the early screening of diabetic retinopathy (DR), a diabetes-related eye disease that can lead to vision loss.
 
-<img width="1470" height="956" alt="Application Screenshot 2" src="https://github.com/user-attachments/assets/1d4b7cd6-90ce-4d25-b10b-c010bbc49e6b" />
+The project uses a convolutional neural network trained on the APTOS 2019 Blindness Detection dataset. A React frontend lets users upload retinal images, while a FastAPI backend processes the image and returns a predicted severity class.
 
-<img width="1470" height="956" alt="Application Screenshot 3" src="https://github.com/user-attachments/assets/39edf0e3-bef1-41c1-94bf-2ae669ca6476" />
+The project aims to explore accessible, mobile-friendly retinal screening workflows, particularly for underserved communities.
 
-</div>
+## ✨ Features
 
----
+- 🖼️ Upload retinal fundus images in JPEG or PNG format.
+- 🧠 Predict one of five diabetic retinopathy severity classes.
+- ⚡ Run model inference through a FastAPI REST API.
+- 🌐 Use a responsive React web interface.
+- 📊 View the predicted class and model-reported probability.
+- 🛡️ Validate image uploads and enforce a 10 MB file-size limit.
+- 📖 Explore API endpoints through FastAPI's interactive documentation.
 
-## 🌌 Overview
+## 🩺 Classification Classes
 
-**Retinal AI** is a deep learning–based system designed to detect and classify **Diabetic Retinopathy (DR)** severity from retinal fundus images. It uses **ResNet-based CNN models (PyTorch)** and a **modern Tkinter GUI** with a dark gradient theme for a professional hospital interface.
+| Grade | Class | Description |
+|---|---|---|
+| 0 | No DR | No diabetic retinopathy identified by the model |
+| 1 | Mild DR | Mild non-proliferative diabetic retinopathy |
+| 2 | Moderate DR | Moderate non-proliferative diabetic retinopathy |
+| 3 | Severe DR | Severe non-proliferative diabetic retinopathy |
+| 4 | Proliferative DR | Proliferative diabetic retinopathy |
 
-The system allows clinicians and users to:
-- Upload retinal fundus images for analysis
-- Get real-time AI-powered DR severity predictions
-- View detailed diagnostic reports
-- Access verified ophthalmologists across Tamil Nadu
-- Provide feedback for continuous improvement
+Predictions are model outputs, not confirmed medical diagnoses. The displayed probability is not clinically calibrated.
 
----
+## 🏗️ Architecture
 
-## 💡 Problem Statement
-
-> **Diabetic Retinopathy (DR) is the leading cause of preventable blindness in adults.**
-
-### Key Challenges:
-- Manual diagnosis requires trained ophthalmologists and is time-consuming
-- Lack of experts in rural and remote areas delays early detection and treatment
-- Early detection significantly improves patient outcomes and prevents permanent vision loss
-- AI-based screening systems can reduce diagnostic burden and democratize healthcare access
-
----
-
-## 🚀 Solution Overview
-
-A **ResNet-based CNN** model (trained on APTOS 2019 dataset) predicts DR severity from 0–4:
-
-| Label | Condition | Description |
-|:-----:|:-----------|:------------|
-| 0 | 🟢 No DR | No diabetic retinopathy detected |
-| 1 | 🟡 Mild | Mild non-proliferative diabetic retinopathy |
-| 2 | 🟠 Moderate | Moderate non-proliferative diabetic retinopathy |
-| 3 | 🔴 Severe | Severe non-proliferative diabetic retinopathy |
-| 4 | ⚫ Proliferative DR | Proliferative diabetic retinopathy (highest severity) |
-
-Users can log in, upload retinal images, get diagnostic predictions, and contact nearby ophthalmologists for follow-up care.
-
----
-
-## 🧩 Key Features
-
-✅ **AI-based DR classification** (ResNet152 / ResNet18)  
-✅ **Modern dark-themed GUI** with gradient styling (Tkinter)  
-✅ **Button hover effects** and neon animations  
-✅ **Secure authentication** with SQLite-based user login/signup  
-✅ **Real-time predictions** with detailed recommendations  
-✅ **Integrated navigation** (upload, doctors directory, reviews, about)  
-✅ **Offline operation** (no cloud dependency required)  
-✅ **Review & feedback system** for quality improvement  
-
----
-
-## 🧰 Technologies Used
-
-| Category | Tools / Libraries |
-|:----------|:----------------|
-| **Deep Learning** | PyTorch, TorchVision |
-| **GUI Development** | Tkinter, CustomTkinter |
-| **Image Processing** | OpenCV, Pillow (PIL) |
-| **Database** | SQLite |
-| **Language** | Python 3.11+ |
-| **IDE** | Visual Studio Code |
-| **OS Tested** | Windows 10/11, Linux |
-
----
-
-## 💎 Design Aesthetic
-
-🎨 **Theme:** Deep midnight gradient (Black → Teal → Cyan)  
-💡 **Font:** Segoe UI (bold, modern typography)  
-✨ **Buttons:** Neon hover animation effects  
-🧠 **Framework:** Native Tkinter – optimized for hospital environments  
-🌙 **Mode:** Dark theme (eye-friendly for extended use)  
-
----
-
-## ⚙️ Installation & Setup
-
-### 1️⃣ Clone the Repository
-```bash
-git clone https://github.com/Adithyasivakumar/Team-Thiran-Diabetic-Retinopathy-Detection.git
-cd Team-Thiran-Diabetic-Retinopathy-Detection
+```text
+User
+  |
+  v
+React + Vite Frontend
+  |
+  | HTTP POST /predict
+  v
+FastAPI Backend
+  |
+  v
+Image Validation and Preprocessing
+  |
+  v
+PyTorch Classification Model
+  |
+  v
+Predicted Class and Probability
+  |
+  v
+Result Display in Browser
 ```
 
-### 2️⃣ Create Virtual Environment
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+## 🧰 Technology Stack
+
+| Component | Technology |
+|---|---|
+| Frontend | React, JavaScript, CSS |
+| Frontend tooling | Vite, npm |
+| Backend | Python, FastAPI |
+| API server | Uvicorn |
+| Machine learning | PyTorch, TorchVision |
+| Image processing | Pillow |
+| Dataset | APTOS 2019 Blindness Detection |
+| Version control | Git, GitHub |
+
+## 📂 Project Structure
+
+```text
+RETINAL_AI/
+├── api.py
+├── model.py
+├── blindness.py
+├── train_model.py
+├── train_model_baseline.py
+├── train_model_frozen_head.py
+├── model_baseline.py
+├── model_frozen_head.py
+├── evaluate_model.py
+├── evaluate_frozen_head.py
+├── download_sample.py
+├── download_evaluation.py
+├── download_expanded_train.py
+├── requirements.txt
+├── README.md
+├── sampleimages/
+├── images/
+└── frontend/
+    ├── package.json
+    ├── package-lock.json
+    ├── index.html
+    └── src/
+        ├── App.jsx
+        ├── App.css
+        └── main.jsx
 ```
 
-### 3️⃣ Install Dependencies
+## ⚙️ Setup and Installation
+
+### Prerequisites
+
+- Python 3.11 recommended
+- Node.js and npm
+- Git
+- The trained model checkpoint, `classifier_improved.pt`
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Melkin7/RETINAL_AI.git
+cd RETINAL_AI
+```
+
+### 2. Create and activate a Python virtual environment
+
+On macOS or Linux:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+On Windows:
+
+```powershell
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+### 3. Install backend dependencies
+
+Install the dependencies listed in `requirements.txt`:
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4️⃣ Run the Application
+If additional dependencies are missing, install the packages required by `api.py` and `model.py`, including FastAPI, Uvicorn, PyTorch, TorchVision, Pillow, and `python-multipart`.
+
+### 4. Obtain the model checkpoint
+
+Place the trained `classifier_improved.pt` file in the repository root, alongside `model.py` and `api.py`.
+
+The checkpoint is not included in the Git repository because it exceeds GitHub's regular Git file-size limit. You must obtain it separately before running predictions.
+
+### 5. Start the FastAPI backend
+
+From the repository root:
+
 ```bash
-python blindness.py
+python -m uvicorn api:app --reload
 ```
 
----
+The backend runs at:
 
-## 🎯 How to Use
+- API: http://127.0.0.1:8000
+- Interactive API documentation: http://127.0.0.1:8000/docs
+- Health check: http://127.0.0.1:8000/health
 
-### Step 1: Login / Sign Up
-- **Default credentials** (for testing):
-  - Username: `admin`
-  - Password: `admin123`
-- Create a new account for additional users
+Keep this terminal running.
 
-### Step 2: Upload Retinal Image
-- Navigate to "Upload Report"
-- Select a fundus image (`.jpg` or `.png` format)
-- Click "Analyze" to get predictions
+### 6. Start the React frontend
 
-### Step 3: View Results
-- AI model provides DR severity classification (0-4)
-- Recommendations are displayed based on severity
-- Review results and contact doctors if needed
+Open a second terminal:
 
-### Step 4: Explore Features
-- **Doctors Directory:** View ophthalmologist contacts in Tamil Nadu
-- **Review Page:** Leave feedback on predictions and experience
-- **About Page:** Learn more about the project and team
-
----
-
-## 🔬 Model Architecture
-
-| Component | Details |
-|:-----------|:---------|
-| **Base Model** | ResNet152 (PyTorch pretrained on ImageNet) |
-| **Input Size** | 224×224 pixels |
-| **Output Layer** | 5 neurons (Softmax for 5 DR classes) |
-| **Loss Function** | Negative Log-Likelihood Loss (NLLLoss) |
-| **Optimizer** | Adam (learning rate = 1e-5) |
-| **Batch Size** | 32 (configurable) |
-| **Validation Accuracy** | ≈ 85.6% |
-| **Training Duration** | 2–5 epochs (CPU optimized) |
-
----
-
-## 🧪 Dataset
-
-📂 **Dataset Source:** [APTOS 2019 Blindness Detection (Kaggle)](https://www.kaggle.com/competitions/aptos2019-blindness-detection/data)
-
-- **Total Images:** 3,662 labeled fundus images
-- **Distribution:** Balanced across 5 DR severity classes (0-4)
-- **Preprocessing:** Resize to 224×224, normalization, and augmentation applied
-- **Train/Test Split:** 80% training, 20% validation
-
----
-
-## 📁 Project Structure
-
-```
-Team-Thiran-Diabetic-Retinopathy-Detection/
-├── blindness.py                    # Main GUI application
-├── model.py                        # Model architecture definition
-├── train_model.py                  # Model training script
-├── inference.ipynb                 # Inference notebook
-├── prepare_data.py                 # Data preprocessing
-├── requirements.txt                # Python dependencies
-├── dr_users.db                     # SQLite database (user data)
-├── sampleimages/                   # Sample retinal images
-├── images/                         # UI assets and screenshots
-└── README.md                       # This file
+```bash
+cd frontend
+npm install
+npm run dev
 ```
 
+Open the local frontend address printed by Vite, usually:
+
+http://localhost:5173
+
+Keep both servers running while using the application.
+
+## 🔌 API Endpoints
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/` | API welcome information and class labels |
+| GET | `/health` | Check API health and model loading status |
+| POST | `/predict` | Upload a retinal image and receive a prediction |
+
+### Example prediction response
+
+```json
+{
+  "predicted_grade": 2,
+  "predicted_class": "Moderate DR",
+  "predicted_probability": 0.79,
+  "warning": "Experimental model; not for clinical diagnosis."
+}
+```
+
+This is an illustrative response format. Actual predictions and probabilities depend on the uploaded image.
+
+### Test the API
+
+Open http://127.0.0.1:8000/docs, expand `POST /predict`, upload a JPEG or PNG image, and execute the request.
+
+## 📊 Dataset and Evaluation
+
+The project uses the [APTOS 2019 Blindness Detection dataset](https://www.kaggle.com/competitions/aptos2019-blindness-detection/data).
+
+The dataset contains retinal fundus images labeled with diabetic retinopathy severity grades from 0 to 4. Training and evaluation scripts are included in the repository.
+
+Model performance depends on the checkpoint, dataset split, preprocessing, and evaluation procedure. Results from experimental checkpoints should not be interpreted as evidence of clinical readiness.
+
+## 🔒 Privacy and Security
+
+- Do not commit virtual environments, credentials, API secrets, or local user databases.
+- Uploaded images are processed by the local API in the current demo configuration.
+- Review and configure data handling before deploying the application publicly.
+- Use appropriate security, privacy, and access controls before handling real patient data.
+
+## ⚠️ Limitations and Medical Disclaimer
+
+Retinal AI is a student research and demonstration project. It has not been established as a clinically validated diagnostic system.
+
+- Predictions may be incorrect, including for severe disease.
+- Model probabilities are not clinically calibrated confidence estimates.
+- Image quality and differences between datasets may affect performance.
+- The application must not replace professional eye examinations or advice from qualified healthcare professionals.
+
+## 🚀 Future Improvements
+
+- Deploy the frontend and backend for remote demonstrations.
+- Host the model checkpoint through an appropriate large-file storage service.
+- Add automated testing and continuous integration.
+- Improve model evaluation across diverse populations and image conditions.
+- Explore explainability tools for retinal image analysis.
+- Investigate multilingual support, including Tamil.
+
+## 👥 Team
+
+### Team Lead
+**Adithya S** — System architecture, AI workflow planning, project coordination
+
+### Core Contributors
+**Nhowmitha S** — GUI design, preprocessing, model integration, evaluation
+
+**Melkin S** — AI module development, dataset preparation, model training, performance analysis
+
+### Key Contributor
+**Bhavadharini G** — Application workflow design, UI/UX support, testing, documentation
+
+### Mentor
+**Mr. DL Mathew Valan** — Technical guidance and project review
+
+## 🙏 Acknowledgments
+
+- APTOS and the Kaggle community for the retinal image dataset.
+- The project team and mentor for their contributions and guidance.
+
+## 📄 License
+
+The project previously described itself as MIT-licensed. Ensure a corresponding `LICENSE` file is present in the repository before distributing it under that license.
+
 ---
 
-## 🏥 Reference Ophthalmology Contacts (Tamil Nadu)
-
-*Contacts provided for legitimate clinical awareness and patient follow-up only.*
-
-| Hospital | Location | Contact |
-|:---------|:---------|:--------|
-| Aravind Eye Hospital | Madurai | +91 452 435 6100 |
-| Sankara Nethralaya | Chennai | +91 44 4227 1500 |
-| Dr. Agarwal's Eye Hospital | Coimbatore | +91 422 4411 111 |
-| Lotus Eye Hospital | Salem | +91 427 2770 777 |
-| Vasan Eye Care | Trichy | +91 431 241 4444 |
-
----
-
-## 💬 Review & Feedback Page
-
-Patients and users can:
-- Rate the accuracy of AI predictions
-- Leave feedback on interface usability
-- Comment on doctor recommendations
-- Track their diagnostic history
-
-All reviews are stored securely in the local SQLite database for quality improvement and research purposes.
-
----
-
-## 🌟 Future Enhancements
-
-🔹 **Web Version** – Flask or Streamlit-based web interface  
-🔹 **Explainable AI (XAI)** – Heatmaps for lesion visualization  
-🔹 **Multi-language Support** – English & Tamil GUI  
-🔹 **Federated Learning** – Privacy-focused distributed AI  
-🔹 **Hospital Integration** – Connect with HMS (Hospital Management Systems)  
-🔹 **Mobile App** – iOS/Android application for telemedicine  
-🔹 **Real-time Monitoring** – Progress tracking for diabetic patients  
-
----
-
-## 👨‍💻 Team
-
-### 🔹 Team Lead
-**Adithya S**
-- Role: System Architecture, AI Workflow Planning, Project Coordination
-### 🔹 Core Contributors
-**Nhowmitha S**
-- Role: GUI Design, Preprocessing Pipeline, Model Integration, Evaluation
-
-**Melkin S**
-- Role: AI Module Development, Dataset Preparation, Model Training, Performance Analysis
-
-### 🔹 Key Contributor
-**Bhavadharini G**
-- Role: Application Workflow Design, UI/UX Support, Testing & Documentation
-
-### 🔹 Mentor
-**Mr. DL Mathew Valan**
-- Role: Technical Guidance, System Validation, Project Review
-
----
-
-## 💖 Acknowledgments
-
-Special thanks to:
-
-- **Aravind Eye Hospital, Madurai** – for inspiring this research vision and providing clinical insights
-- **APTOS (Asia Pacific Tele-Ophthalmology Society)** – for open datasets and promoting global eye health awareness
-- **Kaggle Community** – for hosting the APTOS 2019 dataset and benchmarking challenges
-
----
-
-## 📝 License
-
-This project is open-source and available under the MIT License.
-
----
-
-## 🩶 Quote
-
-> **"Empowering Vision Through Intelligence."** 👁️
-
----
-
-<div align="center">
-
-### 💫 If you found this project inspiring, give it a ⭐ on GitHub!
-### Together, let's advance AI in healthcare. 🧠💙
-
-</div>
+**Retinal AI — Empowering Vision Through Intelligence.** 👁️
